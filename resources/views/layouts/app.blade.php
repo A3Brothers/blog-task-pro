@@ -37,7 +37,7 @@
         @endif
 
         <!-- Alert -->
-        <x-alert></x-alert>
+        <x-alert />
 
 
         <!-- Page Content -->
