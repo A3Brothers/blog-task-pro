@@ -2,7 +2,7 @@ Certainly, here's the final version of the installation instructions with your a
 
 **Project Installation Instructions**
 
-*Prerequisite: Ensure you have the following environment: Laravel 10.28.0, PHP 8.2.10, and Composer 2.6.5.*
+*Prerequisite: Ensure you have the following environment: Laravel 10.28.0, PHP 8.2.10, Node.js v16.16.0, NPM 9.8.0, and Composer 2.6.5.
 
 *If using a ZIP file:*
 
@@ -63,7 +63,7 @@ Certainly, here's the final version of the installation instructions with your a
 
 **Project Overview**
 
-- **Environment**: This project is built using the latest version of Laravel, specifically Laravel 10.28.0, PHP 8.2.10, and Composer 2.6.5.
+- **Environment**: This project is built using the latest version of Laravel (Laravel 10.28.0), PHP (PHP 8.2.10), Node.js (v16.16.0), NPM (9.8.0), and Composer (2.6.5).
 - **Dependencies**: Composer is used to manage PHP dependencies.
 - **Frontend**: Tailwind CSS and Alpine.js are used for frontend design and JavaScript functionality. The project is scaffolded with Blade and Breeze, which is the default in a Laravel scaffolded application.
 - **Data Tables**: Yajra DataTables v10 is used for the Post and Task listing.
