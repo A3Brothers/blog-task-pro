@@ -1,20 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('My Blog Posts') }}
+            {{ __('My Task List') }}
         </h2>
     </x-slot>
 
     <div class="text-right m-8">
-        <a href="{{ route('post.create') }}"
+        <a href="{{ route('task.create') }}"
             class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-right">
-            Add Post +
+            Add Task +
         </a>
     </div>
-
     <div class="w-full mx-auto my-8 p-4 bg-white shadow rounded-lg px-20">
         <div class="-mx-4 -my-2 overflow-x-auto">
-            <table class="w-full bg-white border border-gray-200 mx-auto post_datatable">
+            <table class="w-full bg-white border border-gray-200 mx-auto task_datatable">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#
@@ -25,7 +24,9 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ __('Description') }}</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {{ __('Published At') }}</th>
+                            {{ __('Status') }}</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {{ __('Due Date') }}</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             {{ __('View') }}</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -47,10 +48,10 @@
 
         <script type="text/javascript">
             $(function() {
-                var table = $('.post_datatable').DataTable({
+                var table = $('.task_datatable').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('post.user.list') }}",
+                    ajax: "{{ route('task.index') }}",
                     columns: [{
                             data: 'index',
                             name: 'index',
@@ -64,14 +65,20 @@
                             searchable: true
                         },
                         {
-                            data: 'content',
-                            name: 'content',
+                            data: 'description',
+                            name: 'description',
                             orderable: true,
                             searchable: true
                         },
                         {
-                            data: 'published_at',
-                            name: 'published_at',
+                            data: 'status',
+                            name: 'status',
+                            orderable: true,
+                            searchable: true
+                        },
+                        {
+                            data: 'due_date',
+                            name: 'due_date',
                             orderable: true,
                             searchable: false
                         },
@@ -89,7 +96,7 @@
                         },
                     ],
                     order: [
-                        [1, 'desc']
+                        [4, 'desc']
                     ]
                 });
             });

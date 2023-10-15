@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Blog\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,13 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('post', PostController::class)->parameters([
+    Route::resource('/post', PostController::class)->parameters([
         'post' => 'post:slug'
     ])->except('index', 'show');
-    Route::get('post/list', [PostController::class, 'userPosts'])->name('post.user.list');
+    Route::get('/post/list', [PostController::class, 'userPosts'])->name('post.user.list');
+    Route::resource('/task', TaskController::class);
 });
 
-Route::resource('post', PostController::class)->parameters([
+Route::resource('/post', PostController::class)->parameters([
     'post' => 'post:slug'
 ])->only('index', 'show');
 

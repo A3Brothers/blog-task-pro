@@ -52,8 +52,16 @@
                             {{ __('My Blogs') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('task.index')">
+                            {{ __('My Tasks') }}
+                        </x-dropdown-link>
+
                         <x-dropdown-link :href="route('post.create')">
                             {{ __('Create Blog') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('task.create')">
+                            {{ __('Create Task') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -113,8 +121,16 @@
                     {{ __('My Blogs') }}
                 </x-responsive-nav-link>
 
+                <x-responsive-nav-link :href="route('task.index')">
+                    {{ __('My Tasks') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('post.create')">
                     {{ __('Create Blog') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('task.create')">
+                    {{ __('Create Task') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

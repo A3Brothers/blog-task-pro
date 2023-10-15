@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -56,11 +55,19 @@ class PostController extends Controller
                 })
                 ->editColumn('content', '{{words($content, stripHtml: true)}}')
                 ->editColumn('published_at', '{{date("d-M-Y", strtotime($published_at))}}')
+                ->editColumn('view', function ($row) {
+                    $url = route('post.show', ['post' => $row->slug]);
+                    $imgUrl = asset('assets/image/icons8-view-50.png');
+                    $html = <<<HTML
+                    <p><a href="{$url}"><img class="w-6" src="$imgUrl" alt="view"></a></p>
+                    HTML;
+                    return $html;
+                })
                 ->addColumn('action', function ($row) {
                     $html = view('posts.partials.action', ['post' => $row])->render();
                     return $html;
                 })
-                ->rawColumns(['title', 'action'])
+                ->rawColumns(['title', 'action', 'view'])
                 ->toJson();
         }
         return view('posts.list');
@@ -81,7 +88,7 @@ class PostController extends Controller
     {
         $post = auth()->user()->posts()->create($request->all());
 
-        return $this->redirectTo($post, 'Post added successfully!');
+        return redirectTo($post, 'Post added successfully!', 'post.index');
     }
 
     /**
@@ -111,7 +118,7 @@ class PostController extends Controller
 
         $affectedRow = $post->update($request->all());
 
-        return $this->redirectTo($affectedRow, 'Post updated successfully!');
+        return redirectTo($affectedRow, 'Post updated successfully!', 'post.index');
     }
 
     /**
@@ -119,25 +126,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete', $post);
+        $this->authorize('update', $post);
 
         $affectedRow = $post->delete();
 
-        return $this->redirectTo($affectedRow, 'Post deleted successfully!');
-    }
-
-    /**
-     * Redirect to the resource listing page with success/error message.
-     *
-     * @param  bool  $affectedRow
-     * @param  string  $msg
-     * @return RedirectResponse
-     */
-    protected function redirectTo(mixed $affectedRow, string $msg): RedirectResponse
-    {
-        if ($affectedRow) {
-            return redirect()->route('post.index')->withSuccess($msg);
-        }
-        return redirect()->route('post.index')->withError('Something went wrong!');
+        return redirectTo($affectedRow, 'Post deleted successfully!', 'post.index');
     }
 }
