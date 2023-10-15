@@ -22,19 +22,25 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Post route for authenticated users
     Route::resource('/post', PostController::class)->parameters([
         'post' => 'post:slug'
     ])->except('index', 'show');
+
     Route::get('/post/list', [PostController::class, 'userPosts'])->name('post.user.list');
+
+    // Task route for authenticated users
     Route::resource('/task', TaskController::class);
 });
 
+// Post route for guest users
 Route::resource('/post', PostController::class)->parameters([
     'post' => 'post:slug'
 ])->only('index', 'show');

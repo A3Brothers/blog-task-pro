@@ -46,16 +46,19 @@ class Post extends Model
     {
         parent::boot();
 
+        // adding slug and published_at date before post creation
         self::creating(function ($model) {
             $model->slug = Str::slug($model->title);
             $model->published_at = now();
         });
 
+        // adding slug before post update
         self::updating(function ($model) {
             $model->slug = Str::slug($model->title);
         });
     }
 
+    // title accessor
     protected function title(): Attribute
     {
         return Attribute::make(
@@ -63,6 +66,7 @@ class Post extends Model
         );
     }
 
+    // published_at accessor
     protected function publishedAt(): Attribute
     {
         return Attribute::make(
