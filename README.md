@@ -1,5 +1,3 @@
-Certainly, here's the final version of the installation instructions with your additional point:
-
 **Project Installation Instructions**
 
 *Prerequisite: Ensure you have the following environment: Laravel 10.28.0, PHP 8.2.10, Node.js v16.16.0, NPM 9.8.0, and Composer 2.6.5.
