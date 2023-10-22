@@ -21,7 +21,7 @@ class TaskFactory extends Factory
         $randomDays = fake()->numberBetween(0, 10);
         $randomDate = $now->addDays($randomDays);
         return [
-            'user_id' => fake()->randomElement(User::all()->modelKeys()),
+            'user_id' => fake()->randomElement(User::all('id')),
             'title' => fake()->text(70),
             'description' => fake()->paragraph(),
             'due_date' => $randomDate

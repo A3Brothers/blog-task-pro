@@ -22,7 +22,7 @@ class PostFactory extends Factory
         $slug = Str::slug($title);
         return [
             'title' => $title,
-            'user_id' => fake()->randomElement(User::all()->modelKeys()),
+            'user_id' => fake()->randomElement(User::all('id')),
             'slug' => $slug,
             'content' => fake()->paragraph(50),
             'published_at' => fake()->dateTime(timezone: 'Asia/Kolkata')
