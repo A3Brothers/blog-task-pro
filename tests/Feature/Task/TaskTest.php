@@ -15,7 +15,7 @@ test('New task can not be added without user authentication', function () {
         'title' => 'Test title',
         'description' => 'test description',
         'status' => 'pending',
-        'due_date' => '2023-10-19',
+        'due_date' => '2024-10-19',
     ]);
 
     $response->assertRedirect(route('login'));
@@ -28,7 +28,7 @@ test('Authenticated user can create task', function () {
         'title' => 'Test title',
         'description' => 'test description',
         'status' => 'pending',
-        'due_date' => '2023-10-19',
+        'due_date' => '2024-10-19',
     ])->assertRedirect(route('task.index'));
 
     $this->assertDatabaseHas('tasks', ['title' => 'Test title']);
@@ -73,7 +73,7 @@ test('User can update task who owns it', function () {
         'title' => 'Test title',
         'description' => 'test description',
         'status' => 'pending',
-        'due_date' => '2023-10-19',
+        'due_date' => '2024-10-19',
     ])->assertRedirect(route('task.index'));
 
     $this->assertDatabaseHas('tasks', ['title' => 'Test title']);
