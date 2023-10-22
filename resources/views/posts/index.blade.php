@@ -24,7 +24,7 @@
                     <div class="text-slate-500 font-bold uppercase m-4">{{ __('No Post') }}</div>
                 @endforelse
             </ul>
-
+            {{-- {{ $posts->links() }} --}}
         </div>
         <button id="scrollToTop"
             class="fixed bottom-4 right-4 bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 hidden">
@@ -39,7 +39,6 @@
             const postsBlock = document.querySelector('#postsBlock');
             const scrollTop = document.querySelector('#scrollToTop');
 
-            let page = 1;
             let lastPage = false;
 
             function handleIntersection(entries) {
@@ -62,25 +61,22 @@
             const observer = new IntersectionObserver(handleIntersection, options);
             observer.observe(target);
 
+            var url = "{{ $posts->nextPageUrl() }}";
             const loadMorePosts = async () => {
-                let url = "{{ route('post.index', ['page' => '_page']) }}";
-                url = url.replace('_page', page + 1);
                 try {
-
-                    let response = await window.axios.get(url, {
-                        headers: {
-                            'Accept': 'application/json'
+                    if (url) {
+                        let response = await window.axios.get(url, {
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        if (!response.data.lastPage) {
+                            history.pushState({}, "", url);
+                            url = response.data.nextPageUrl
+                            postsBlock.insertAdjacentHTML('beforeend', response.data.html);
                         }
-                    });
-                    if (response.data.lastPage || response.data.count < 10) {
-                        lastPage = true;
-                        target.innerText = "{{ __('No Post') }}"
-                    } else {
-                        postsBlock.insertAdjacentHTML('beforeend', response.data.html);
-                        page++
                     }
                 } catch (err) {
-                    lastPage = true;
                     console.log(err);
                 }
 

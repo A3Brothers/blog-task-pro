@@ -16,14 +16,14 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::latest()->simplePaginate(10);
+        $posts = Post::orderByDesc('id')->cursorPaginate(10);
 
         if ($request->expectsJson()) {
-            if ($posts->count() > 0) {
+            if ($posts->count()) {
                 $htmlPartial = view('posts.partials.index', compact('posts'))->render();
-                return response()->json(['html' => $htmlPartial, 'lastPage' => false, 'count' => $posts->count()]);
+                return response()->json(['html' => $htmlPartial, 'lastPage' => false, 'nextPageUrl' => $posts->nextPageUrl()]);
             } else {
-                return response()->json(['lastPage' => true, 'count' => $posts->count()]);
+                return response()->json(['lastPage' => true]);
             }
         }
 
