@@ -23,7 +23,10 @@
 5. **Run Test Cases:**
    - To ensure the code's reliability, run the test cases with the command: `php artisan test`.
 
-6. **Start the Development Server:**
+6. **Run Static Analysis:**
+   - To ensure code quality, run PHPStan's static analysis with the command: `vendor/bin/phpstan analyse`.
+
+7. **Start the Development Server:**
    - Run the command: `php artisan serve`.
    - Your application will be available at `http://localhost:8000` by default.
 
@@ -53,9 +56,20 @@
 7. **Run Test Cases:**
    - To ensure the code's reliability, run the test cases with the command: `php artisan test`.
 
-8. **Start the Development Server:**
+8. **Run Static Analysis:**
+   - To ensure code quality, run PHPStan's static analysis with the command: `vendor/bin/phpstan analyse`.
+
+9. **Start the Development Server:**
    - Run the command: `php artisan serve`.
    - Your application will be available at `http://localhost:8000` by default.
+
+---
+**Test User Credentials**
+
+To access the application for testing purposes, you can use the following test user credentials. Please note that these credentials will be available only after seeding the database using the `php artisan migrate:fresh --seed` command:
+
+- **Email**: akash@email.com
+- **Password**: password
 
 ---
 
